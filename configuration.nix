@@ -44,15 +44,46 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.excludePackages = with pkgs; [
+    xterm
+  ];
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.displayManager.defaultSession = "plasma";
+  services.displayManager.sddm.wayland.enable = true;
+  services.desktopManager.plasma6.enable = true;
+  services.desktopManager.plasma6.enableQt5Integration = true;
+  environment.plasma6.excludePackages = with pkgs.libsForQt5; [
+    elisa
+    plasma-browser-integration
+    konsole
+    oxygen
+  ];
+
+  # Graphics
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    nvidiaSettings = true;
+  };
+
+  # Logitech
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true;
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb= {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   # Enable CUPS to print documents.
@@ -84,9 +115,6 @@
     description = "JJ Hubbard";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      firefox
-      kate
-    #  thunderbird
     ];
   };
 
@@ -96,12 +124,72 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     neovim
+     latest.firefox-nightly-bin
+     wl-clipboard
      foot
      git
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+     betterdiscordctl
+     asdf-vm
+     fzf
+     heroic
+     lutris
+     zoxide
+     discord
+     ntfs3g
+     wget
+     unzip
+     gzip
+     pigz
+     solaar
+     fastfetch
   ];
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    configure = {
+      packages.myVimPackage = with pkgs.vimPlugins; {
+        start = [
+	  vim-nix
+	  nvim-lspconfig
+	  mason-nvim
+	  mason-lspconfig-nvim
+	  fidget-nvim
+	  nvim-cmp
+	  harpoon
+	  onedark-nvim
+	];
+      };
+    };
+  };
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
+
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+
+  nixpkgs.overlays =
+    let
+      # Change this to a rev sha to pin
+      moz-rev = "master";
+      moz-url = builtins.fetchTarball { url = "https://github.com/mozilla/nixpkgs-mozilla/archive/${moz-rev}.tar.gz";};
+      nightlyOverlay = (import "${moz-url}/firefox-overlay.nix");
+    in [
+      nightlyOverlay 
+      (final: prev: {
+        discord = prev.discord.overrideAttrs (old: {
+          buildInputs = (old.buildInputs or []) ++ [ final.makeWrapper ];
+	  postInstall = (old.postInstall or "") + ''
+	    wrapProgram $out/bin/discord --add-flags '--disable-gpu'
+	  '';
+        });
+      })
+    ];
+ 
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

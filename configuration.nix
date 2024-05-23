@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -13,6 +13,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -51,6 +52,7 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.defaultSession = "plasma";
   services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.autoNumlock = true;
   services.desktopManager.plasma6.enable = true;
   services.desktopManager.plasma6.enableQt5Integration = true;
   environment.plasma6.excludePackages = with pkgs.libsForQt5; [
@@ -58,6 +60,7 @@
     plasma-browser-integration
     konsole
     oxygen
+    kate
   ];
 
   # Graphics
@@ -73,7 +76,16 @@
     modesetting.enable = true;
     powerManagement.enable = false;
     powerManagement.finegrained = false;
+    open = false;
     nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "555.42.02";
+      sha256_64bit = "sha256-k7cI3ZDlKp4mT46jMkLaIrc2YUx1lh1wj/J4SVSHWyk=";
+      sha256_aarch64 = "sha256-rtDxQjClJ+gyrCLvdZlT56YyHQ4sbaL+d5tL4L4VfkA=";
+      openSha256 = "sha256-rtDxQjClJ+gyrCLvdZlT56YyHQ4sbaL+d5tL4L4VfkA=";
+      settingsSha256 = "sha256-rtDxQjClJ+gyrCLvdZlT56YyHQ4sbaL+d5tL4L4VfkA="; 
+      persistencedSha256 = lib.fakeSha256;
+    };
   };
 
   # Logitech
@@ -120,34 +132,56 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     latest.firefox-nightly-bin
-     wl-clipboard
-     foot
-     git
-     betterdiscordctl
-     asdf-vm
-     fzf
-     heroic
-     lutris
-     zoxide
-     discord
-     ntfs3g
-     wget
-     unzip
-     gzip
-     pigz
-     solaar
-     fastfetch
+    latest.firefox-nightly-bin
+    wl-clipboard
+    foot
+    git
+    betterdiscordctl
+    protonup-qt
+    fzf
+    heroic
+    lutris
+    zoxide
+    discord
+    ntfs3g
+    wget
+    unzip
+    gzip
+    pigz
+    solaar
+    fastfetch
+    distrobox
+    unigine-superposition
   ];
 
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
     configure = {
+      customRC = ''
+        set number relativenumber
+        set mouse=a
+        set clipboard=unnamedplus
+        set breakindent
+        set undofile
+        set ignorecase
+        set smartcase
+        set signcolumn=yes
+        set updatetime=250
+        set cursorline
+        set scrolloff=10
+        set expandtab
+        set tabstop=4
+        set shiftwidth=4
+      '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
 	  vim-nix
@@ -165,27 +199,42 @@
 
   programs.steam = {
     enable = true;
+    gamescopeSession.enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
   };
 
+  programs.gamemode.enable = true;
+
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
+
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
 
   nixpkgs.overlays =
     let
       # Change this to a rev sha to pin
       moz-rev = "master";
-      moz-url = builtins.fetchTarball { url = "https://github.com/mozilla/nixpkgs-mozilla/archive/${moz-rev}.tar.gz";};
+      moz-url = builtins.fetchTarball {
+        url = "https://github.com/mozilla/nixpkgs-mozilla/archive/${moz-rev}.tar.gz";
+        sha256 = "1f41psqw00mdcwm28y1frjhssybg6r8i7rpa8jq0jiannksbj27s";
+      };
       nightlyOverlay = (import "${moz-url}/firefox-overlay.nix");
     in [
       nightlyOverlay 
       (final: prev: {
         discord = prev.discord.overrideAttrs (old: {
           buildInputs = (old.buildInputs or []) ++ [ final.makeWrapper ];
-	  postInstall = (old.postInstall or "") + ''
-	    wrapProgram $out/bin/discord --add-flags '--disable-gpu'
-	  '';
+          postInstall = (old.postInstall or "") + ''
+            wrapProgram $out/bin/discord --add-flags '--disable-gpu'
+          '';
         });
       })
     ];

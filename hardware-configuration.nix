@@ -8,10 +8,10 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "uas" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = [ "kvm-amd" "lenovo-legion-module" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ lenovo-legion-module ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/43dd06b9-2d8e-4df1-b8a2-ed6b82882642";
@@ -21,9 +21,12 @@
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/0D13-48DF";
       fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  swapDevices = [ ];
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/01e983db-c44e-4f08-9e04-a0c50b6464a8"; }
+    ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

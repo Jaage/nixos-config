@@ -4,16 +4,32 @@
 
 { config, pkgs, lib, ... }:
 
+#let
+#  stylix = import (pkgs.fetchFromGitHub {
+#    owner = "danth";
+#    repo = "stylix";
+#    rev = "290c8aef476ce98fff9cefc059284429d561a085"; 
+#    sha256 = "sha256-s9Tyj5pEivl/AsvrpkUkfR1Iu3zHfXpviPfe4HbPJ5I=";
+#  });
+#in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
+  # Flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than 30d";
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -78,6 +94,7 @@
     powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
+#    package = config.boot.kernelPackages.nvidiaPackages.beta;
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       version = "555.42.02";
       sha256_64bit = "sha256-k7cI3ZDlKp4mT46jMkLaIrc2YUx1lh1wj/J4SVSHWyk=";
@@ -158,6 +175,8 @@
     fastfetch
     distrobox
     unigine-superposition
+    nix-prefetch
+    lenovo-legion
   ];
 
   programs.neovim = {
@@ -182,17 +201,20 @@
         set tabstop=4
         set shiftwidth=4
       '';
+      luaRc = ''
+        require("mason").setup {}
+      '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
-	  vim-nix
-	  nvim-lspconfig
-	  mason-nvim
-	  mason-lspconfig-nvim
-	  fidget-nvim
-	  nvim-cmp
-	  harpoon
-	  onedark-nvim
-	];
+	      vim-nix
+	      nvim-lspconfig
+	      mason-nvim
+	      mason-lspconfig-nvim
+	      fidget-nvim
+	      nvim-cmp
+	      harpoon
+	      onedark-nvim
+	    ];
       };
     };
   };

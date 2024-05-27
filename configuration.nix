@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 #let
 #  stylix = import (pkgs.fetchFromGitHub {
@@ -241,16 +241,18 @@
   };
 
   nixpkgs.overlays =
-    let
-      # Change this to a rev sha to pin
-      moz-rev = "master";
-      moz-url = builtins.fetchTarball {
-        url = "https://github.com/mozilla/nixpkgs-mozilla/archive/${moz-rev}.tar.gz";
-        sha256 = "1f41psqw00mdcwm28y1frjhssybg6r8i7rpa8jq0jiannksbj27s";
-      };
-      nightlyOverlay = (import "${moz-url}/firefox-overlay.nix");
-    in [
-      nightlyOverlay 
+#    let
+#      # Change this to a rev sha to pin
+#      moz-rev = "master";
+#      moz-url = builtins.fetchTarball {
+#        url = "https://github.com/mozilla/nixpkgs-mozilla/archive/${moz-rev}.tar.gz";
+#        sha256 = "1f41psqw00mdcwm28y1frjhssybg6r8i7rpa8jq0jiannksbj27s";
+#      };
+#      nightlyOverlay = (import "${moz-url}/firefox-overlay.nix");
+#    in [
+#      nightlyOverlay 
+    [
+      inputs.nixpkgs-mozilla.overlays.firefox
       (final: prev: {
         discord = prev.discord.overrideAttrs (old: {
           buildInputs = (old.buildInputs or []) ++ [ final.makeWrapper ];

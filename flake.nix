@@ -27,7 +27,7 @@
             {
               name = "layer2";
               remap = {
-                "CapsLock" = { "set_mode" = "layer1" };
+                "CapsLock" = { "set_mode" = "layer1"; };
                 "i" = "up";
                 "j" = "left";
                 "k" = "down";

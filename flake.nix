@@ -26,10 +26,9 @@
             keymap:
               - name: Arrow Keys
                 remap:
-                  CapsLock-i: up
-                  CapsLock-j: left
-                  CapsLock-k: down
-                  CapsLock-i: right
+                  CapsLock:
+                    remap:
+                      j: left
           '';
           #services.xremap.config.keymap = [
           #  {

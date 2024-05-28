@@ -161,6 +161,7 @@
   };
 
   users.users.test = {
+    passwd = "admin";
     isNormalUser = true;
     description = "test";
     extraGroups = [ "networkmanager" "wheel" ];

@@ -216,10 +216,9 @@
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
-            ctrlp
 #            vim-nix
 #            nvim-lspconfig
-            mason-nvim
+            mason.nvim
 #           mason-lspconfig-nvim
 #           fidget-nvim
 #           nvim-cmp

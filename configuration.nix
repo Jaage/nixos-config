@@ -212,13 +212,13 @@
       '';
       luaRc = ''
         packadd! mason.nvim
-        require("mason").setup {}
+        require("mason").setup()
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
 #            vim-nix
 #            nvim-lspconfig
-            mason.nvim
+            mason-nvim
 #           mason-lspconfig-nvim
 #           fidget-nvim
 #           nvim-cmp

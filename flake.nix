@@ -31,28 +31,6 @@
                   rightctrl-k: down
                   rightctrl-l: right
           '';
-          #services.xremap.config.keymap = [
-          #  {
-          #    name = "Arrow Keys";
-          #    remap = {
-          #      "CapsLock-i" = "up";
-          #      "CapsLock-j" = "left";
-          #      "CapsLock-k" = "down";
-          #      "CapsLock-l" = "right";
-          #    };
-          #  }
-            #{
-            #  name = "layer2";
-            #  remap = {
-            #    "CapsLock" = { "set_mode" = "layer1"; };
-            #    "i" = "up";
-            #    "j" = "left";
-            #    "k" = "down";
-            #    "l" = "right";
-            #  };
-            #  mode = "layer2";
-            #}
-         # ];
         }
       ];
     };

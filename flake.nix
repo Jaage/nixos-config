@@ -20,8 +20,20 @@
           system.stateVersion = "23.11";
           services.xremap.config.modmap = [
             {
-              name = "Global";
-              remap = { "CapsLock" = "Esc"; };
+              name = "layer1";
+              remap = { "CapsLock" = { "set_mode" = "layer2" }; };
+              mode = "layer1";
+            }
+            {
+              name = "layer2";
+              remap = {
+                "CapsLock" = { "set_mode" = "layer1" };
+                "i" = "up";
+                "j" = "left";
+                "k" = "down";
+                "l" = "right";
+              };
+              mode = "layer2";
             }
           ];
         }

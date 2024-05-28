@@ -26,7 +26,7 @@
             keymap:
               - name: Arrow Keys
                 remap:
-                  CapsLock:
+                  rightctrl:
                     remap:
                       j: left
           '';

@@ -32,8 +32,8 @@
                   rightctrl-l: right
                   rightctrl-o: backspace
                   rightctrl-u: delete
-                  rightctrl-h: home
-                  rightctrl-;: end
+                  rightctrl-f: home
+                  rightctrl-semicolon: end
           '';
         }
       ];

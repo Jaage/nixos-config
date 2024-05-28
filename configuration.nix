@@ -77,7 +77,7 @@
   # Enable the KDE Plasma Desktop Environment.
   services.xservice.displayManager.defaultSession = "plasma";
   services.xservice.displayManager.sddm.wayland.enable = true;
-  services.desktopManager.plasma5.enable = true;
+  services.xservice.desktopManager.plasma5.enable = true;
 
 #  services.displayManager.defaultSession = "plasma";
 #  services.displayManager.sddm.wayland.enable = true;

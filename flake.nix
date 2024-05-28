@@ -18,16 +18,25 @@
         ./configuration.nix
         inputs.xremap-flake.nixosModules.default {
           system.stateVersion = "23.11";
-          services.xremap.config.keymap = [
-            {
-              name = "Arrow Keys";
-              remap = {
-                "CapsLock-i" = "up";
-                "CapsLock-j" = "left";
-                "CapsLock-k" = "down";
-                "CapsLock-l" = "right";
-              };
-            }
+          services.xremap.yamlConfig = ''
+            keymap:
+              - name: Arrow Keys
+                remap:
+                  capslock-i: up
+                  capslock-j: left
+                  capslock-k: down
+                  capslock-i: right
+          '';
+          #services.xremap.config.keymap = [
+          #  {
+          #    name = "Arrow Keys";
+          #    remap = {
+          #      "CapsLock-i" = "up";
+          #      "CapsLock-j" = "left";
+          #      "CapsLock-k" = "down";
+          #      "CapsLock-l" = "right";
+          #    };
+          #  }
             #{
             #  name = "layer2";
             #  remap = {
@@ -39,7 +48,7 @@
             #  };
             #  mode = "layer2";
             #}
-          ];
+         # ];
         }
       ];
     };

@@ -214,9 +214,11 @@
         set shiftwidth=2
       '';
       luaRc = ''
+        require('lsp-zero')
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
+          lsp-zero-nvim
 #            vim-nix
 #            nvim-lspconfig
 #           fidget-nvim

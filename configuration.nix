@@ -211,7 +211,7 @@
         set shiftwidth=4
       '';
       luaRc = ''
-        packadd! mason-nvim
+        packadd! mason.nvim
         require("mason").setup {}
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {

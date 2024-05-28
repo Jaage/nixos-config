@@ -76,10 +76,6 @@
   ];
 
   # Enable the KDE Plasma Desktop Environment.
-#  services.displayManager.defaultSession = "plasma";
-#  services.displayManager.sddm.wayland.enable = true;
-#  services.xserver.desktopManager.plasma5.enable = true;
-
   services.displayManager.defaultSession = "plasma";
   services.displayManager.sddm.wayland.enable = true;
   services.displayManager.sddm.autoNumlock = true;
@@ -192,6 +188,7 @@
     nix-prefetch
     lenovo-legion
     nil
+    konsave
   ];
 
   programs.neovim = {

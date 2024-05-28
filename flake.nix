@@ -23,6 +23,12 @@
               - name: Arrow Keys
                 remap:
                   CapsLock: rightctrl
+            keymap:
+              - name: Arrow Keys
+                remap:
+                  CapsLock:
+                    remap:
+                      j: left
           '';
           #services.xremap.config.keymap = [
           #  {

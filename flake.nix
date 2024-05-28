@@ -19,13 +19,10 @@
         inputs.xremap-flake.nixosModules.default {
           system.stateVersion = "23.11";
           services.xremap.yamlConfig = ''
-            keymap:
+            modmap:
               - name: Arrow Keys
                 remap:
-                  CapsLock:
-                    held:
-                      remap:
-                        j: left
+                  CapsLock: rightctrl
           '';
           #services.xremap.config.keymap = [
           #  {

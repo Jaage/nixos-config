@@ -209,9 +209,9 @@
         set expandtab
         set tabstop=4
         set shiftwidth=4
-        packadd! mason-nvim
       '';
       luaRc = ''
+        packadd! mason-nvim
         require("mason").setup {}
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {

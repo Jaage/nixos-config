@@ -283,11 +283,14 @@
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
+          fidget-nvim
           lsp-zero-nvim
-#          vim-nix
+          vim-nix
+          luasnip
           nvim-lspconfig
-#          fidget-nvim
-#          nvim-cmp
+          nvim-cmp
+          cmp_luasnip
+          cmp-nvim-lsp
 #          harpoon
 #          onedark-nvim
         ];

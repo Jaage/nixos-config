@@ -21,7 +21,7 @@
           services.xremap.config.modmap = [
             {
               name = "layer1";
-              remap = { "CapsLock" = { "set_mode" = "layer2" }; };
+              remap = { "CapsLock" = { "set_mode" = "layer2"; }; };
               mode = "layer1";
             }
             {

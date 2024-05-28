@@ -17,7 +17,7 @@
       modules = [
         ./configuration.nix
         inputs.xremap-flake.nixosModules.default {
-          system.stateVersion = "24.11";
+          system.stateVersion = "23.11";
           services.xremap.config.modmap = [
             {
               name = "Global";

@@ -160,15 +160,6 @@
     ];
   };
 
-  users.users.test = {
-    passwd = "admin";
-    isNormalUser = true;
-    description = "test";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    ];
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;

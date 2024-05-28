@@ -26,7 +26,10 @@
             keymap:
               - name: Arrow Keys
                 remap:
+                  rightctrl-i: up
                   rightctrl-j: left
+                  rightctrl-k: down
+                  rightctrl-l: right
           '';
           #services.xremap.config.keymap = [
           #  {

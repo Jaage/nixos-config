@@ -214,17 +214,22 @@
         set shiftwidth=2
       '';
       luaRc = ''
-        require('lsp-zero')
+        local lsp_zero = require('lsp-zero')
+        lsp_zero.on_attach(function(client, bufnr)
+          lsp_zero.default_keymaps({buffer = bufnr})
+        end)
+
+        require('lspconfig').nil.setup({})
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
           lsp-zero-nvim
-#            vim-nix
-#            nvim-lspconfig
-#           fidget-nvim
-#           nvim-cmp
-#           harpoon
-#           onedark-nvim
+#          vim-nix
+          nvim-lspconfig
+#          fidget-nvim
+#          nvim-cmp
+#          harpoon
+#          onedark-nvim
         ];
       };
     };

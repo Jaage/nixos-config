@@ -18,23 +18,27 @@
         ./configuration.nix
         inputs.xremap-flake.nixosModules.default {
           system.stateVersion = "23.11";
-          services.xremap.config.modmap = [
+          services.xremap.config.keymap = [
             {
-              name = "layer1";
-              remap = { "CapsLock" = { "set_mode" = "layer2"; }; };
-              mode = "layer1";
-            }
-            {
-              name = "layer2";
+              name = "Arrow Keys";
               remap = {
-                "CapsLock" = { "set_mode" = "layer1"; };
-                "i" = "up";
-                "j" = "left";
-                "k" = "down";
-                "l" = "right";
+                "CapsLock-i" = "up";
+                "CapsLock-j" = "left";
+                "CapsLock-k" = "down";
+                "CapsLock-l" = "right";
               };
-              mode = "layer2";
             }
+            #{
+            #  name = "layer2";
+            #  remap = {
+            #    "CapsLock" = { "set_mode" = "layer1"; };
+            #    "i" = "up";
+            #    "j" = "left";
+            #    "k" = "down";
+            #    "l" = "right";
+            #  };
+            #  mode = "layer2";
+            #}
           ];
         }
       ];

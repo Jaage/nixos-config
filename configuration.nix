@@ -209,18 +209,13 @@
         set expandtab
         set tabstop=4
         set shiftwidth=4
-        require("mason").setup()
       '';
       luaRc = ''
-        packadd! mason.nvim
-        require("mason").setup()
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
 #            vim-nix
 #            nvim-lspconfig
-            mason-nvim
-#           mason-lspconfig-nvim
 #           fidget-nvim
 #           nvim-cmp
 #           harpoon

@@ -24,7 +24,9 @@
                 remap:
                   CapsLock:
                     remap:
-                      j: left
+                      j:
+                        held: left
+                        alone: left
           '';
           #services.xremap.config.keymap = [
           #  {

@@ -219,7 +219,20 @@
           lsp_zero.default_keymaps({buffer = bufnr})
         end)
 
-        require('lspconfig').nil.setup({})
+        local lsp_path = vim.env.NIL_PATH or 'target/debug/nil'
+        require('lspconfig').nil_ls.setup {
+          autostart = true,
+          capabilities = caps,
+          cmd = { lsp_path },
+          settings = {
+            ['nil'] = {
+              testSetting = 42,
+              formatting = {
+                command = { "nixpkgs-fmt" },
+              },
+            },
+          },
+        }
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [

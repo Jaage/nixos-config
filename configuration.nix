@@ -186,6 +186,7 @@
     unigine-superposition
     nix-prefetch
     lenovo-legion
+    nil
   ];
 
   programs.neovim = {

@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-mozilla.url = "github:mozilla/nixpkgs-mozilla";
+    nil.url = "github:oxalica/nil";
   };
 
   outputs = {

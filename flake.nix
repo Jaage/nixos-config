@@ -20,16 +20,20 @@
           system.stateVersion = "23.11";
           services.xremap.yamlConfig = ''
             modmap:
-              - name: Arrow Keys
+              - name: Caps Lock to Right Control for shortcut purposes
                 remap:
                   CapsLock: rightctrl
             keymap:
-              - name: Arrow Keys
+              - name: Miscellaneous Shortcuts
                 remap:
                   rightctrl-i: up
                   rightctrl-j: left
                   rightctrl-k: down
                   rightctrl-l: right
+                  rightctrl-o: backspace
+                  rightctrl-u: delete
+                  rightctrl-h: home
+                  rightctrl-;: end
           '';
         }
       ];

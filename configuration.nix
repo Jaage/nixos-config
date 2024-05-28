@@ -26,11 +26,20 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Storage Optimization
   nix.gc = {
     automatic = true;
     options = "--delete-older-than 30d";
   };
+  nix.settings.auto-optimise-store = true;
 
+  # Run
+  programs.nix-ld = {
+    enable = true;
+    libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
+  };
+
+  # Networking
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -206,14 +215,14 @@
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
-          vim-nix
-          nvim-lspconfig
-          mason-nvim
-          mason-lspconfig-nvim
-          fidget-nvim
-          nvim-cmp
-          harpoon
-          onedark-nvim
+#          vim-nix
+#          nvim-lspconfig
+#          mason-nvim
+#          mason-lspconfig-nvim
+#          fidget-nvim
+#          nvim-cmp
+#          harpoon
+#          onedark-nvim
         ];
       };
     };
@@ -241,16 +250,6 @@
   };
 
   nixpkgs.overlays =
-#    let
-#      # Change this to a rev sha to pin
-#      moz-rev = "master";
-#      moz-url = builtins.fetchTarball {
-#        url = "https://github.com/mozilla/nixpkgs-mozilla/archive/${moz-rev}.tar.gz";
-#        sha256 = "1f41psqw00mdcwm28y1frjhssybg6r8i7rpa8jq0jiannksbj27s";
-#      };
-#      nightlyOverlay = (import "${moz-url}/firefox-overlay.nix");
-#    in [
-#      nightlyOverlay 
     [
       inputs.nixpkgs-mozilla.overlays.firefox
       (final: prev: {

@@ -52,7 +52,6 @@
       { workspace = { didChangeWatchedFiles = { dynamicRegistration = true } } }
     );
 
-    local lsp_path = vim.env.NIL_PATH or 'target/debug/nil'
     require('lspconfig').nil_ls.setup {
       autostart = true,
       capabilities = caps,

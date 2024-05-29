@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
   luaRc = import /etc/nixos/luaRc.nix;
@@ -148,8 +148,6 @@ in
     isNormalUser = true;
     description = "JJ Hubbard";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    ];
   };
 
   # Allow unfree packages

@@ -56,7 +56,7 @@
     require('lspconfig').nil_ls.setup {
       autostart = true,
       capabilities = caps,
-      cmd = { lsp_path },
+      cmd = { "nil" },
       settings = {
         ['nil'] = {
           testSetting = 42,

@@ -5,7 +5,7 @@
 { config, pkgs, lib, inputs, ... }:
 
 let
-  luaRc = (import ./luaRc.nix);
+  luaRc = import /etc/nixos/luaRc.nix;
 in
 {
   imports =
@@ -209,7 +209,7 @@ in
         set shiftwidth=2
 
         lua <<EOF
-        
+        ${luaRc.luaRc}
         EOF
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {

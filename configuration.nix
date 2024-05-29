@@ -222,8 +222,7 @@ in
           nvim-cmp
           cmp_luasnip
           cmp-nvim-lsp
-#          harpoon
-          onedark-nvim
+          harpoon
         ];
       };
     };

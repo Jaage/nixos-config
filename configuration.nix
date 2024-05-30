@@ -90,9 +90,7 @@ in
     driSupport = true;
     driSupport32Bit = true;
   };
-
   services.xserver.videoDrivers = [ "nvidia" ];
-
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;
@@ -261,8 +259,9 @@ in
         });
       })
     ];
- 
 
+  stylix.image = /home/jjh/Downloads/allmight.png;
+ 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

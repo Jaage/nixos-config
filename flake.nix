@@ -5,6 +5,7 @@
     nil.url = "github:oxalica/nil";
     xremap-flake.url = "github:xremap/nix-flake";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = {
@@ -18,6 +19,7 @@
       modules = [
         ./configuration.nix
         inputs.chaotic.nixosModules.default
+        inputs.stylix.nixosModules.stylix
         inputs.xremap-flake.nixosModules.default {
           system.stateVersion = "23.11";
           services.xremap.yamlConfig = ''

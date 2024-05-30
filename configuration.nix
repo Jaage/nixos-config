@@ -184,6 +184,7 @@ in
     lenovo-legion
     nil
     konsave
+    firefox
   ];
 
   programs.neovim = {

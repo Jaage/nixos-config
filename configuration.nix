@@ -183,6 +183,8 @@ in
     nil
     konsave
     stow
+    eza
+    fd
   ];
 
   programs.neovim = {

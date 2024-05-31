@@ -185,6 +185,7 @@ in
     stow
     eza
     fd
+    btop
   ];
 
   programs.neovim = {

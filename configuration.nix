@@ -267,7 +267,8 @@ in
       })
     ];
 
-  stylix.image = /home/jjh/Wallpapers/SotE.jpg;
+    stylix.image = /home/jjh/Wallpapers/SotE.jpg;
+    stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/apathy.yaml";
  
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

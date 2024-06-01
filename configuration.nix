@@ -188,6 +188,7 @@ in
     fd
     btop
     wezterm
+    ryzen-monitor-ng
   ];
 
   programs.neovim = {

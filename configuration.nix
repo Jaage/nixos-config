@@ -108,6 +108,7 @@ in
 #      persistencedSha256 = lib.fakeSha256;
 #    };
   };
+  programs.ryzen-monitor-ng.enable = true;
 
   # Logitech
   hardware.logitech.wireless.enable = true;
@@ -188,7 +189,6 @@ in
     fd
     btop
     wezterm
-    ryzen-monitor-ng
   ];
 
   programs.neovim = {

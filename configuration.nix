@@ -34,6 +34,7 @@ in
     enable = true;
     libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
   };
+  programs.appimage.binfmt = true;
 
   # Networking
   networking.hostName = "nixos"; # Define your hostname.

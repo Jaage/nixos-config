@@ -186,6 +186,7 @@ in
     eza
     fd
     btop
+    wezterm
   ];
 
   programs.neovim = {

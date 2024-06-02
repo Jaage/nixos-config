@@ -190,6 +190,7 @@ in
     btop
     wezterm
     obs-studio
+    ffmpeg
   ];
 
   programs.neovim = {

@@ -189,6 +189,7 @@ in
     fd
     btop
     wezterm
+    obs-studio
   ];
 
   programs.neovim = {

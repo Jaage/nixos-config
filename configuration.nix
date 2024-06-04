@@ -150,7 +150,13 @@ in
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  programs.direnv.enable = true;
+  programs.direnv = {
+    package = pkgs.direnv;
+    nix-direnv = {
+      enable = true;
+      package = pkgs.nix-direnv;
+    };
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -191,6 +197,7 @@ in
     wezterm
     obs-studio
     ffmpeg
+
   ];
 
   programs.neovim = {

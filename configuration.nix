@@ -150,14 +150,7 @@ in
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  programs.direnv = {
-    enable = true;
-    package = pkgs.direnv;
-    nix-direnv = {
-      enable = true;
-      package = pkgs.nix-direnv;
-    };
-  };
+  programs.direnv.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

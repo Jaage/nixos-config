@@ -191,7 +191,6 @@ in
     wezterm
     obs-studio
     ffmpeg
-    latte-dock
   ];
 
   programs.neovim = {

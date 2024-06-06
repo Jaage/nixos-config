@@ -191,6 +191,7 @@ in
     wezterm
     obs-studio
     ffmpeg
+    lsix
   ];
 
   programs.neovim = {

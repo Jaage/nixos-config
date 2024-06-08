@@ -192,6 +192,7 @@ in
     obs-studio
     ffmpeg
     lsix
+    mangohud
   ];
 
   programs.neovim = {

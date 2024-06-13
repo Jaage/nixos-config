@@ -160,7 +160,7 @@ in
   # Variables
   environment.variables = {
     MANGOHUD = "1";
-    MANGOHUD_CONFIGFILE = "~/.config/MangoHud/MangoHud.conf";
+    MANGOHUD_CONFIGFILE = "home/jjh/.config/MangoHud/MangoHud.conf";
   };
   # Packages
   environment.systemPackages = with pkgs; [

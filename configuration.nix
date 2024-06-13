@@ -88,6 +88,8 @@ in
 
   # Graphics
   hardware.opengl = {
+    extraPackages = with pkgs; [ mangohud ];
+    extraPackages32 = with pkgs; [ mangohud ];
     enable = true;
     driSupport = true;
     driSupport32Bit = true;

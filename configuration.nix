@@ -157,8 +157,11 @@ in
   nixpkgs.config.allowBroken = true;
   nixpkgs.config.nvidia.acceptLicense = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # Variables
+  environment.variables = {
+    MANGOHUD = "1";
+  };
+  # Packages
   environment.systemPackages = with pkgs; [
     latest.firefox-nightly-bin
     wl-clipboard

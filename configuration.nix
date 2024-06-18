@@ -197,6 +197,7 @@ in
     ffmpeg
     lsix
     mangohud
+    logseq
   ];
 
   programs.neovim = {

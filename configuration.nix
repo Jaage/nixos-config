@@ -39,7 +39,7 @@ in
   programs.appimage.binfmt = true;
 
   # Networking
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "ua"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -145,9 +145,9 @@ in
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.jjh = {
+  users.users.rune = {
     isNormalUser = true;
-    description = "JJ Hubbard";
+    description = "Rank one";
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
@@ -161,7 +161,7 @@ in
   # Variables
   environment.variables = {
     MANGOHUD = "1";
-    MANGOHUD_CONFIGFILE = "$HOME/.config/MangoHud/MangoHud.conf";
+    MANGOHUD_CONFIGFILE = "${config.users.users.rune.home}/.config/MangoHud/MangoHud.conf";
   };
   # Packages
   environment.systemPackages = with pkgs; [

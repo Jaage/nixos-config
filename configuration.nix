@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
   luaRc = import /etc/nixos/luaRc.nix;
@@ -23,6 +23,9 @@ in
   chaotic.scx.enable = true;
   chaotic.scx.scheduler = "scx_lavd";
   boot.kernelParams = [ "nvidia-drm.modeset=1" "nvidia-drm.fbdev=1" ];
+
+  nixpkgs.config.permittedInsecurePackages =
+    lib.optional (pkgs.logseq.version == "0.10.9") "electron-27.3.11";
 
   # Storage Optimization
   nix.gc = {

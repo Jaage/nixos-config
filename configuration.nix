@@ -25,7 +25,7 @@ in
   boot.kernelParams = [ "nvidia-drm.modeset=1" "nvidia-drm.fbdev=1" ];
 
   nixpkgs.config.permittedInsecurePackages =
-    lib.optional (pkgs.logseq.version == "0.10.9") "electron-27.3.11";
+    lib.optional (pkgs.logseq.version == "0.10.9") "electron-28.3.3";
 
   # Storage Optimization
   nix.gc = {
@@ -91,12 +91,11 @@ in
   ];
 
   # Graphics
-  hardware.opengl = {
+  hardware.graphics = {
     extraPackages = with pkgs; [ mangohud ];
     extraPackages32 = with pkgs; [ mangohud ];
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
@@ -165,6 +164,7 @@ in
   environment.variables = {
     MANGOHUD = "1";
     MANGOHUD_CONFIGFILE = "/home/jjh/.config/MangoHud/MangoHud.conf";
+    MOZ_ENABLE_WAYLAND = 0;
   };
   # Packages
   environment.systemPackages = with pkgs; [
